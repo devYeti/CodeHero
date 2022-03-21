@@ -27,8 +27,8 @@ bullet_y = 500
 # create clock variable for use in fps control:
 clock = pygame.time.Clock()
 
-keep_alive = True
 # game loop:
+keep_alive = True
 while keep_alive:
     
     # key press handler, fire the bullet:
@@ -57,6 +57,9 @@ while keep_alive:
             move_direction = 'right'
             
     screen.blit(planet, [planet_x, 50])
+    
+    if bullet_y < 80 and planet_x > 120 and planet_x < 180:
+        print('BOOM')
     
     # refresh display at max 60 fps:
     pygame.display.update()
