@@ -35,7 +35,7 @@ while keep_alive:
             keep_alive = False
         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             keep_alive = False
-        elif event.type == pygame.K_SPACE or event.type == pygame.FINGERUP: # something here isn't working correctly
+        elif event.type == pygame.K_SPACE or event.type == pygame.FINGERUP: # seems to work on android, but not on PC
             fired = True
         else:
             print(event.type)
