@@ -1,10 +1,6 @@
 # Game building excersize for Programming Hero course
-import os
+
 import pygame
-try:
-    import android
-except ImportError:
-    android = None
 
 # initial screen and background variables:
 screen_size = [360, 600]
@@ -12,11 +8,13 @@ screen = pygame.display.set_mode(screen_size)
 background = pygame.image.load('background.png')
 
 # initial planet variables:
+planets = ['p_one.png', 'p_two.png', 'p_three.png']
+p_index = 0
 planet_x = 140
-planet = pygame.image.load('p_one.png')
+planet = pygame.image.load(planets[p_index])
 move_direction = 'right'
 
-# initial spaceship variables:
+# initial spaceship variable:
 spaceship = pygame.image.load('spaceship.png')
 
 # initial bullet variables:
@@ -31,10 +29,18 @@ clock = pygame.time.Clock()
 keep_alive = True
 while keep_alive:
     
-    # key press handler, fire the bullet:
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_SPACE] == True:
-        fired = True
+    # key press handler:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            keep_alive = False
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            keep_alive = False
+        elif event.type == pygame.K_SPACE or event.type == pygame.FINGERUP: # something here isn't working correctly
+            fired = True
+        else:
+            print(event.type)
+    
+    # fire the bullet:        
     if fired is True:
         bullet_y = bullet_y - 5
         # reset bullet position after firing:
@@ -58,8 +64,17 @@ while keep_alive:
             
     screen.blit(planet, [planet_x, 50])
     
+    # bullet and planet collision:
     if bullet_y < 80 and planet_x > 120 and planet_x < 180:
-        print('BOOM')
+        p_index += 1
+        # iterate through planets list:
+        if p_index < len(planets):
+            planet = pygame.image.load(planets[p_index])
+            planet_x = 10
+        # if no more planets in list, win condition is met:
+        else:
+            print('Congratulations!/nYou Win!')
+            keep_alive = False
     
     # refresh display at max 60 fps:
     pygame.display.update()
