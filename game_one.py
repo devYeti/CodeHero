@@ -65,7 +65,7 @@ while keep_alive:
     screen.blit(planet, [planet_x, 50])
     
     # bullet and planet collision:
-    if bullet_y < 80 and planet_x > 120 and planet_x < 180:
+    if bullet_y < 80 and 120 < planet_x < 180:
         p_index += 1
         # iterate through planets list:
         if p_index < len(planets):
